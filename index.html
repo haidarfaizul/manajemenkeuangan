@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Input Data</title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+  </head>
+  <body>
+    <div class="container">
+      <h1>Form Input Data</h1>
+      <form id="dataForm" method="POST" action="process.php">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required /><br />
+
+        <label for="date">Tanggal:</label>
+        <input type="date" id="date" name="date" required /><br />
+
+        <!-- Field Pembayaran dan Nominal (Wajib) -->
+        <label for="payment1">Pembayaran 1:</label>
+        <input type="text" id="payment1" name="payment1" required /><br />
+
+        <label for="nominal1">Nominal 1:</label>
+        <input type="number" id="nominal1" name="nominal1" required /><br />
+
+        <!-- Field Pembayaran dan Nominal (Opsional) -->
+        <label for="payment2">Pembayaran 2:</label>
+        <input type="text" id="payment2" name="payment2" /><br />
+
+        <label for="nominal2">Nominal 2:</label>
+        <input type="number" id="nominal2" name="nominal2" /><br />
+
+        <label for="payment3">Pembayaran 3:</label>
+        <input type="text" id="payment3" name="payment3" /><br />
+
+        <label for="nominal3">Nominal 3:</label>
+        <input type="number" id="nominal3" name="nominal3" /><br />
+
+        <label for="payment4">Pembayaran 4:</label>
+        <input type="text" id="payment4" name="payment4" /><br />
+
+        <label for="nominal4">Nominal 4:</label>
+        <input type="number" id="nominal4" name="nominal4" /><br />
+
+        <label for="payment5">Pembayaran 5:</label>
+        <input type="text" id="payment5" name="payment5" /><br />
+
+        <label for="nominal5">Nominal 5:</label>
+        <input type="number" id="nominal5" name="nominal5" /><br />
+
+        <label for="payment6">Pembayaran 6:</label>
+        <input type="text" id="payment6" name="payment6" /><br />
+
+        <label for="nominal6">Nominal 6:</label>
+        <input type="number" id="nominal6" name="nominal6" /><br />
+
+        <label for="payment7">Pembayaran 7:</label>
+        <input type="text" id="payment7" name="payment7" /><br />
+
+        <label for="nominal7">Nominal 7:</label>
+        <input type="number" id="nominal7" name="nominal7" /><br />
+
+        <button type="submit">Kirim</button>
+      </form>
+      <p id="responseMessage"></p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
