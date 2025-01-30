@@ -5,25 +5,25 @@ include 'config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $date = $_POST['date'];
-    $payment1 = $_POST['payment1'];
+    $item1 = $_POST['item1'];
     $nominal1 = $_POST['nominal1'];
-    $payment2 = $_POST['payment2'];
+    $item2 = $_POST['item2'];
     $nominal2 = $_POST['nominal2'];
-    $payment3 = $_POST['payment3'];
+    $item3 = $_POST['item3'];
     $nominal3 = $_POST['nominal3'];
-    $payment4 = $_POST['payment4'];
+    $item4 = $_POST['item4'];
     $nominal4 = $_POST['nominal4'];
-    $payment5 = $_POST['payment5'];
+    $item5 = $_POST['item5'];
     $nominal5 = $_POST['nominal5'];
-    $payment6 = $_POST['payment6'];
+    $item6 = $_POST['item6'];
     $nominal6 = $_POST['nominal6'];
-    $payment7 = $_POST['payment7'];
+    $item7 = $_POST['item7'];
     $nominal7 = $_POST['nominal7'];
 
 
     // Query untuk menyimpan data
-    $stmt = $conn->prepare("INSERT INTO transactions (name, date, payment1, nominal1, payment2, nominal2, payment3, nominal3, payment4, nominal4, payment5, nominal5, payment6, nominal6, payment7, nominal7 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssssssssssss", $name, $date, $payment1, $nominal1, $payment2, $nominal2, $payment3, $nominal3, $payment4, $nominal4, $payment5, $nominal5, $payment6, $nominal6, $payment7, $nominal7);
+    $stmt = $conn->prepare("INSERT INTO transactions (name, date, item1, nominal1, item2, nominal2, item3, nominal3, item4, nominal4, item5, nominal5, item6, nominal6, item7, nominal7 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssssssssss", $name, $date, $item1, $nominal1, $item2, $nominal2, $item3, $nominal3, $item4, $nominal4, $item5, $nominal5, $item6, $nominal6, $item7, $nominal7);
 
     if ($stmt->execute()) {
         echo "Data berhasil disimpan!";
