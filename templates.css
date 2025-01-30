@@ -1,0 +1,28 @@
+#cell {
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+  vertical-align: middle;
+}
+
+#itemcell {
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  border-left: 1px solid #000000;
+}
+
+#nominalcell {
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+#undercell {
+  border-bottom: 1px solid #000000;
+}
+
+#undertopcell {
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+}
