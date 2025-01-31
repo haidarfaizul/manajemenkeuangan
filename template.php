@@ -2,28 +2,30 @@
 // Include file config.php untuk koneksi database
 require_once 'config.php';
 
-// Menjumlahkan nominal1 sampai nominal7
-$total_nominal = 0;
-for ($i = 1; $i <= 7; $i++) {
-    if (isset($row['nominal' . $i])) {
-        $total_nominal += floatval($row['nominal' . $i]); // Konversi DECIMAL ke FLOAT
-    }
-}
-
 // Ambil id dari URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Query untuk mengambil data berdasarkan id
-$sql = "SELECT item1, item2, item3, item4, item5, item6, item7, 
+$sql = "SELECT name, date, item1, item2, item3, item4, item5, item6, item7, 
                nominal1, nominal2, nominal3, nominal4, nominal5, nominal6, nominal7 
         FROM transactions 
         WHERE id = $id"; // Sesuaikan nama tabel dengan yang ada di database Anda
 
 $result = $conn->query($sql);
 
+// Menjumlahkan nominal1 sampai nominal7
+$total_nominal = 0;
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc(); // Ambil data sebagai array asosiatif
+    $row = $result->fetch_assoc();
+    $tanggal_db = $row['date']; // Formatnya diasumsikan YYYY-MM-DD
+    $bulan = date("m", strtotime($tanggal_db));
+    $tahun = date("Y", strtotime($tanggal_db));
+    for ($i = 1; $i <= 7; $i++) {
+        $total_nominal += floatval($row['nominal' . $i] ?? 0);
+    }
 } else {
+  $bulan = date("m"); // Default ke bulan sekarang jika data tidak ditemukan
+  $tahun = date("Y");
     echo "Data tidak ditemukan.";
     exit;
 }
@@ -146,7 +148,7 @@ $conn->close();
           align="right"
           valign="middle"
         >
-          <b><font size="3" color="#000000">NO. /KAS/12/2024</font></b>
+          <b><font size="3" color="#000000"><?php echo "NO.     /KAS/$bulan/$tahun"; ?></font></b>
         </td>
       </tr>
       <tr></tr>
@@ -174,7 +176,7 @@ $conn->close();
           <b><font face="Times New Roman" color="#000000">:</font></b>
         </td>
         <td id="undercell" colspan="11" align="left" valign="center">
-          <font face="Consolas" color="#000000" size="3">Faris</font>
+          <font face="Consolas" color="#000000" size="3"><?php echo $row['name']; ?></font>
         </td>
       </tr>
       <tr>
@@ -203,7 +205,7 @@ $conn->close();
           <b><font face="Times New Roman" color="#000000">:</font></b>
         </td>
         <td id="undercell" colspan="5" align="left" valign="middle">
-          <b><font size="2" color="#000000">Rp</font></b>
+          <b><font size="2" color="#000000">Rp <?php echo number_format($total_nominal, 0, ',', '.'); ?></font></b>
         </td>
         <td colspan="3" align="left" valign="bottom">
           <b><font size="2" color="#000000"> TERBILANG :</font></b>
@@ -281,7 +283,7 @@ $conn->close();
           sdval="45627"
           sdnum="1033;0;DD-MMM-YYYY"
         >
-          <font face="Consolas" color="#000000">01-Dec-2024</font>
+          <font size="3" face="Consolas" color="#000000"><?php echo $row['date']; ?></font>
         </td>
       </tr>
       <tr>
@@ -357,7 +359,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item1</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item1']; ?></font>
         </td>
         <td
           id="cell"
@@ -381,7 +383,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item2</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item2']; ?></font>
         </td>
         <td
           id="cell"
@@ -405,7 +407,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item3</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item3']; ?></font>
         </td>
         <td
           id="cell"
@@ -429,7 +431,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item4</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item4']; ?></font>
         </td>
         <td
           id="cell"
@@ -453,7 +455,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item5</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item5']; ?></font>
         </td>
         <td
           id="cell"
@@ -477,7 +479,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item6</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item6']; ?></font>
         </td>
         <td
           id="cell"
@@ -501,7 +503,7 @@ $conn->close();
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
         <td id="upitemcell" colspan="7" align="left" valign="middle">
-          <font face="Tahoma" color="#000000">item7</font>
+          <font face="Tahoma" color="#000000"><?php echo $row['item7']; ?></font>
         </td>
         <td
           id="cell"
@@ -582,7 +584,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item1']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['nominal1']; ?></font>
+          <font face="Tahoma" color="#000000">
+            <?php 
+            echo ($row['nominal1'] == 0) ? "" : "RP " . number_format($row['nominal1'], 0, ',', '.'); 
+            ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -609,7 +615,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item2']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['nominal2']; ?></font>
+          <font face="Tahoma" color="#000000">
+          <?php 
+            echo ($row['nominal2'] == 0) ? "" : "RP " . number_format($row['nominal2'], 0, ',', '.'); 
+            ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -636,7 +646,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item3']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['nominal3']; ?></font>
+          <font face="Tahoma" color="#000000">
+          <?php 
+          echo ($row['nominal3'] == 0) ? "" : "RP " . number_format($row['nominal3'], 0, ',', '.'); 
+          ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -663,7 +677,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item4']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['item4']; ?></font>
+          <font face="Tahoma" color="#000000">
+          <?php 
+            echo ($row['nominal4'] == 0) ? "" : "RP " . number_format($row['nominal4'], 0, ',', '.'); 
+          ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -690,7 +708,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item5']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['item5']; ?></font>
+          <font face="Tahoma" color="#000000">
+          <?php 
+            echo ($row['nominal5'] == 0) ? "" : "RP " . number_format($row['nominal5'], 0, ',', '.'); 
+            ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -717,7 +739,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item6']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['nominal6']; ?></font>
+          <font face="Tahoma" color="#000000">
+          <?php 
+            echo ($row['nominal6'] == 0) ? "" : "RP " . number_format($row['nominal6'], 0, ',', '.'); 
+            ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -744,7 +770,11 @@ $conn->close();
           <font face="Tahoma" color="#000000"><?php echo $row['item7']; ?></font>
         </td>
         <td id="nominalcell" align="left" valign="middle">
-          <font face="Tahoma" color="#000000"><?php echo $row['nominal7']; ?></font>
+          <font face="Tahoma" color="#000000">
+          <?php 
+            echo ($row['nominal7'] == 0) ? "" : "RP " . number_format($row['nominal7'], 0, ',', '.'); 
+            ?>
+          </font>
         </td>
         <td
           id="cell"
@@ -767,10 +797,14 @@ $conn->close();
         <td id="cell" height="29" align="center" valign="middle">
           <font face="Tahoma" color="#000000"><br /></font>
         </td>
-        <td id="cell" colspan="7" align="right" valign="middle" 
-    sdnum='1033;0;_("Rp"* #,##0_);_("Rp"* \(#,##0\);_("Rp"* "-"_);_(@_)'>
-    <b><font face="Tahoma" color="#000000"> RP <?php echo number_format($total_nominal, 2, ',', '.'); ?></font></b>
-</td>
+        <td
+        id="cell"
+        colspan="7"
+        align="right"
+        valign="middle" 
+        >
+        <b><font face="Tahoma" color="#000000"> RP <?php echo number_format($total_nominal, 0, ',', '.'); ?></font></b>
+        </td>
         <td
           id="cell"
           colspan="3"
@@ -778,7 +812,7 @@ $conn->close();
           valign="middle"
           sdnum='1033;0;_("Rp"* #,##0_);_("Rp"* \(#,##0\);_("Rp"* "-"_);_(@_)'
         >
-          <b><font face="Tahoma" color="#000000"> RP </font></b>
+          <b><font face="Tahoma" color="#000000"> RP <?php echo number_format($total_nominal, 0, ',', '.'); ?></font></b>
         </td>
         <td id="cell" colspan="3" align="left" valign="middle">
           <i
@@ -797,7 +831,7 @@ $conn->close();
           valign="middle"
           sdnum='1033;0;_("Rp"* #,##0_);_("Rp"* \(#,##0\);_("Rp"* "-"_);_(@_)'
         >
-          <b><font face="Tahoma" color="#000000"> RP </font></b>
+          <b><font face="Tahoma" color="#000000"> RP <?php echo number_format($total_nominal, 0, ',', '.'); ?> </font></b>
         </td>
         <td id="cell" colspan="3" align="center" valign="middle">
           <i><font face="Tahoma" color="#000000">Bukti2 terlampir</font></i>
@@ -843,7 +877,7 @@ $conn->close();
           sdval="45627"
           sdnum="1033;0;DD-MMM-YYYY"
         >
-          <font face="Consolas" color="#000000">01-Dec-2024</font>
+          <font size = "2" face="Consolas" color="#000000"><?php echo $row['date']; ?></font>
         </td>
       </tr>
       <tr>
@@ -889,7 +923,7 @@ $conn->close();
           valign="top"
           sdnum='1033;0;_("Rp"\.* #,##0_);_("Rp"* \(#,##0\);_("Rp"* "-"??_);_(@_)'
         >
-          <b><font size="2" color="#000000"> Faris </font></b>
+          <b><font size="2" color="#000000"> <?php echo $row['name']; ?> </font></b>
         </td>
       </tr>
     </table>
