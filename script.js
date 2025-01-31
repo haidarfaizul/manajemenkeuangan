@@ -28,3 +28,18 @@ document.getElementById("dataForm").addEventListener("submit", function (e) {
         "Terjadi kesalahan: " + error.message;
     });
 });
+function loadPage(page) {
+  fetch(`pages/${page}.html`)
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById("content").innerHTML = data;
+    })
+    .catch((error) => {
+      document.getElementById("content").innerHTML = "Halaman tidak ditemukan.";
+    });
+}
+
+// Load halaman dashboard saat pertama kali
+document.addEventListener("DOMContentLoaded", () => {
+  loadPage("dashboard");
+});
