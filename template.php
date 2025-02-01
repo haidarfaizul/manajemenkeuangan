@@ -1,6 +1,6 @@
 <?php
 // Include file config.php untuk koneksi database
-require_once 'config.php';
+require_once '../manajemenkeuangan/config/config.php';
 
 // Ambil id dari URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
