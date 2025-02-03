@@ -1,5 +1,5 @@
 <?php
-$root_url = "/HaidarFolder/manajemenkeuangan";  // Sesuaikan dengan path root kamu
+$root_url = "/manajemenkeuangan";  // Sesuaikan dengan path root kamu
 ?>
 
 <div class="w-64 bg-gray-800 text-white p-5 min-h-screen">

@@ -1,5 +1,5 @@
 <?php
-include '../manajemenkeuangan/config/config.php';
+include '../config/config.php';
 
 // Cek apakah data dikirim via POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
