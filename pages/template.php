@@ -1,6 +1,6 @@
 <?php
 // Include file config.php untuk koneksi database
-require_once '../manajemenkeuangan/config/config.php';
+require_once '../config/config.php';
 
 // Ambil id dari URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -38,7 +38,7 @@ $conn->close();
 <html>
   <head>
     <title></title>
-    <link rel="stylesheet" href="templates.css" />
+    <link rel="stylesheet" href="../css/templates.css" />
     <style type="text/css">
       body,
       div,
