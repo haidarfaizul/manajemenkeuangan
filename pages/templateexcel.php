@@ -1,6 +1,10 @@
 <?php
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+
 // Pastikan file ini dapat mengakses $spreadsheet dan $row
 $sheet = $spreadsheet->getActiveSheet();
+
 
 // Set judul kolom
 $sheet->setCellValue('A1', 'NINDYA BETON – SIER PUSPAUTAMA KSO');
@@ -8,9 +12,8 @@ $sheet->setCellValue('A2', 'Pembangunan Gudang Modern - Distribution Center (DC)
 $sheet->setCellValue('A3', 'Jl. Panjang Jiwo No.44, Panjang Jiwo, Kec. Tenggilis Mejoyo, Surabaya, Jawa Timur 60299');
 
 $sheet->setCellValue('k7', 'NO.');
-$sheet->setCellValue('L7', '/KAS/12/2024');
 
-$sheet->setCellValue('A10', 'BUKTI PENGELUARAN KAS/BANK');
+$sheet->setCellValue('A9', 'BUKTI PENGELUARAN KAS/BANK');
 
 $sheet->setCellValue('A11', 'DIBAYARKAN KEPADA');
 $sheet->setCellValue('C11', ':');
@@ -20,11 +23,10 @@ $sheet->setCellValue('C12', ':');
 $sheet->setCellValue('D12', 'SURABAYA');
 
 $sheet->setCellValue('A14', 'BANYAKNYA');
-$sheet->setCellValue('D14', 'RP');
 $sheet->setCellValue('C14', ':');
-$sheet->setCellValue('J14', 'TERBILANG :');
+$sheet->setCellValue('I14', 'TERBILANG :');
 
-$sheet->setCellValue('D15', '');
+// $sheet->setCellValue('D15', '');
 
 $sheet->setCellValue('A18', 'BERUPA');
 $sheet->setCellValue('C18', ':');
@@ -46,92 +48,122 @@ $sheet->setCellValue('B33', 'pembayaran atas : ');
 $sheet->setCellValue('A42', 'JUMLAH');
 $sheet->setCellValue('L42', 'Bukti2 terlampir');
 
-$sheet->setCellValue('A45', 'Dibuat');
-$sheet->setCellValue('B45', 'Diperiksa');
-$sheet->setCellValue('C45', 'Disetujui');
-$sheet->setCellValue('F45', 'Dibayar');
-$sheet->setCellValue('H45', 'Dibukukan');
-$sheet->setCellValue('I45', 'Surabaya');
-$sheet->setCellValue('l45', ',');
+$sheet->setCellValue('A43', 'Dibuat');
+$sheet->setCellValue('B43', 'Diperiksa');
+$sheet->setCellValue('C43', 'Disetujui');
+$sheet->setCellValue('F43', 'Dibayar');
+$sheet->setCellValue('H43', 'Dibukukan');
+$sheet->setCellValue('I43', 'Surabaya');
+$sheet->setCellValue('l43', ',');
 
-$sheet->setCellValue('I46', 'Tanda Tangan Penerima,');
+$sheet->setCellValue('I44', 'Tanda Tangan Penerima,');
+
+$nomor_kas = "/KAS/$bulan/$tahun";
 
 // Isi data dari database ke baris kedua
-$sheet->setCellValue('A2', $row['name']);
-$sheet->setCellValue('B2', $row['date']);
-$sheet->setCellValue('C2', $row['item1']);
-$sheet->setCellValue('D2', $row['nominal1']);
-$sheet->setCellValue('E2', $row['item2']);
-$sheet->setCellValue('F2', $row['nominal2']);
-$sheet->setCellValue('G2', $row['item3']);
-$sheet->setCellValue('H2', $row['nominal3']);
+$sheet->setCellValue('D11', $row['name']);
+$sheet->setCellValue('N18', $row['date']);
+$sheet->setCellValue('I47', $row['name']);
+$sheet->setCellValue('M43', $row['date']);
+$sheet->setCellValue('M7', $nomor_kas);
+
+$sheet->setCellValue('B25', $row['item1']);
+$sheet->setCellValue('B26', $row['item2']);
+$sheet->setCellValue('B27', $row['item3']);
+$sheet->setCellValue('B28', $row['item4']);
+$sheet->setCellValue('B29', $row['item5']);
+$sheet->setCellValue('B30', $row['item6']);
+$sheet->setCellValue('B31', $row['item7']);
+
+$sheet->setCellValue('B34', $row['item1']);
+$sheet->setCellValue('B35', $row['item2']);
+$sheet->setCellValue('B36', $row['item3']);
+$sheet->setCellValue('B37', $row['item4']);
+$sheet->setCellValue('B38', $row['item5']);
+$sheet->setCellValue('B39', $row['item6']);
+$sheet->setCellValue('B40', $row['item7']);
+
+$sheet->setCellValue('H34', $row['nominal1'] == 0 ? "" : "RP " . number_format($row['nominal1'], 0, ',', '.'));
+$sheet->setCellValue('H35', $row['nominal2'] == 0 ? "" : "RP " . number_format($row['nominal2'], 0, ',', '.'));
+$sheet->setCellValue('H36', $row['nominal3'] == 0 ? "" : "RP " . number_format($row['nominal3'], 0, ',', '.'));
+$sheet->setCellValue('H37', $row['nominal4'] == 0 ? "" : "RP " . number_format($row['nominal4'], 0, ',', '.'));
+$sheet->setCellValue('H38', $row['nominal5'] == 0 ? "" : "RP " . number_format($row['nominal5'], 0, ',', '.'));
+$sheet->setCellValue('H39', $row['nominal6'] == 0 ? "" : "RP " . number_format($row['nominal6'], 0, ',', '.'));
+$sheet->setCellValue('H40', $row['nominal7'] == 0 ? "" : "RP " . number_format($row['nominal7'], 0, ',', '.'));
+$sheet->setCellValue('D15', strtoupper($total_nominal_terbilang . " Rupiah"));
+$sheet->setCellValue('I42', 'RP ' . number_format($total_nominal, 0, ',', '.'));
+$sheet->setCellValue('B41', 'RP ' . number_format($total_nominal, 0, ',', '.'));
+$sheet->setCellValue('D14', 'RP ' . number_format($total_nominal, 0, ',', '.'));
+$sheet->setCellValue('I41', 'RP ' . number_format($total_nominal, 0, ',', '.'));
 
 // Atur tinggi baris (Row Height)
 $sheet->getRowDimension(1)->setRowHeight(26);
 $sheet->getRowDimension(2)->setRowHeight(17);
 $sheet->getRowDimension(3)->setRowHeight(17);
+$sheet->getRowDimension(4)->setRowHeight(0);
+$sheet->getRowDimension(5)->setRowHeight(0);
 $sheet->getRowDimension(6)->setRowHeight(3);
 $sheet->getRowDimension(7)->setRowHeight(15);
 $sheet->getRowDimension(8)->setRowHeight(15);
 $sheet->getRowDimension(9)->setRowHeight(15);
 $sheet->getRowDimension(10)->setRowHeight(15);
-$sheet->getRowDimension(11)->setRowHeight(15.8);
-$sheet->getRowDimension(12)->setRowHeight(18.8);
+$sheet->getRowDimension(11)->setRowHeight(15);
+$sheet->getRowDimension(12)->setRowHeight(18);
 $sheet->getRowDimension(13)->setRowHeight(3);
-$sheet->getRowDimension(14)->setRowHeight(15.6);
-$sheet->getRowDimension(15)->setRowHeight(15.8);
-$sheet->getRowDimension(16)->setRowHeight(15.8);
-$sheet->getRowDimension(17)->setRowHeight(15.8);
-$sheet->getRowDimension(18)->setRowHeight(15.6);
-$sheet->getRowDimension(19)->setRowHeight(15.6);
+$sheet->getRowDimension(14)->setRowHeight(15);
+$sheet->getRowDimension(15)->setRowHeight(15);
+$sheet->getRowDimension(16)->setRowHeight(15);
+$sheet->getRowDimension(17)->setRowHeight(15);
+$sheet->getRowDimension(18)->setRowHeight(15);
+$sheet->getRowDimension(19)->setRowHeight(15);
 $sheet->getRowDimension(20)->setRowHeight(9);
-$sheet->getRowDimension(21)->setRowHeight(3);
-$sheet->getRowDimension(22)->setRowHeight(16.1);
+$sheet->getRowDimension(21)->setRowHeight(0);
+$sheet->getRowDimension(22)->setRowHeight(16);
 $sheet->getRowDimension(23)->setRowHeight(18);
-$sheet->getRowDimension(24)->setRowHeight(22.1);
-$sheet->getRowDimension(25)->setRowHeight(22.1);
-$sheet->getRowDimension(26)->setRowHeight(22.1);
-$sheet->getRowDimension(27)->setRowHeight(22.1);
-$sheet->getRowDimension(28)->setRowHeight(22.1);
-$sheet->getRowDimension(29)->setRowHeight(22.1);
-$sheet->getRowDimension(30)->setRowHeight(22.1);
-$sheet->getRowDimension(31)->setRowHeight(22.1);
-$sheet->getRowDimension(32)->setRowHeight(22.1);
-$sheet->getRowDimension(33)->setRowHeight(22.1);
-$sheet->getRowDimension(34)->setRowHeight(22.1);
-$sheet->getRowDimension(35)->setRowHeight(22.1);
-$sheet->getRowDimension(36)->setRowHeight(22.1);
-$sheet->getRowDimension(37)->setRowHeight(22.1);
-$sheet->getRowDimension(38)->setRowHeight(22.1);
-$sheet->getRowDimension(39)->setRowHeight(22.1);
-$sheet->getRowDimension(40)->setRowHeight(22.1);
-$sheet->getRowDimension(41)->setRowHeight(22.1);
-$sheet->getRowDimension(42)->setRowHeight(22.1);
-$sheet->getRowDimension(43)->setRowHeight(20.1);
-$sheet->getRowDimension(44)->setRowHeight(20.1);
+$sheet->getRowDimension(24)->setRowHeight(21);
+$sheet->getRowDimension(25)->setRowHeight(21);
+$sheet->getRowDimension(26)->setRowHeight(21);
+$sheet->getRowDimension(27)->setRowHeight(21);
+$sheet->getRowDimension(28)->setRowHeight(21);
+$sheet->getRowDimension(29)->setRowHeight(21);
+$sheet->getRowDimension(30)->setRowHeight(21);
+$sheet->getRowDimension(31)->setRowHeight(21);
+$sheet->getRowDimension(32)->setRowHeight(21);
+$sheet->getRowDimension(33)->setRowHeight(21);
+$sheet->getRowDimension(34)->setRowHeight(21);
+$sheet->getRowDimension(35)->setRowHeight(21);
+$sheet->getRowDimension(36)->setRowHeight(21);
+$sheet->getRowDimension(37)->setRowHeight(21);
+$sheet->getRowDimension(38)->setRowHeight(21);
+$sheet->getRowDimension(39)->setRowHeight(21);
+$sheet->getRowDimension(40)->setRowHeight(21);
+$sheet->getRowDimension(41)->setRowHeight(21);
+$sheet->getRowDimension(42)->setRowHeight(22);
+$sheet->getRowDimension(43)->setRowHeight(20);
+$sheet->getRowDimension(44)->setRowHeight(20);
 $sheet->getRowDimension(45)->setRowHeight(27);
-$sheet->getRowDimension(46)->setRowHeight(20.1);
+$sheet->getRowDimension(46)->setRowHeight(20);
 $sheet->getRowDimension(47)->setRowHeight(18);
 $sheet->getRowDimension(48)->setRowHeight(15);
 
 // Atur lebar kolom (Column Width)
-$sheet->getColumnDimension('A')->setWidth(8.09);
-$sheet->getColumnDimension('B')->setWidth(9.18);
-$sheet->getColumnDimension('C')->setWidth(1.64);
-$sheet->getColumnDimension('D')->setWidth(1.36);
-$sheet->getColumnDimension('E')->setWidth(3.82);
-$sheet->getColumnDimension('F')->setWidth(1.91);
-$sheet->getColumnDimension('G')->setWidth(4.82);
-$sheet->getColumnDimension('H')->setWidth(20.09);
-$sheet->getColumnDimension('I')->setWidth(1.36);
-$sheet->getColumnDimension('J')->setWidth(3.45);
-$sheet->getColumnDimension('K')->setWidth(9.45);
-$sheet->getColumnDimension('L')->setWidth(3.18);
-$sheet->getColumnDimension('M')->setWidth(0.5);
-$sheet->getColumnDimension('N')->setWidth(12.45);
 
+$sheet->getColumnDimension('A')->setWidth(12.14);
+$sheet->getColumnDimension('B')->setWidth(13.77);
+$sheet->getColumnDimension('C')->setWidth(2.46);
+$sheet->getColumnDimension('D')->setWidth(2.04);
+$sheet->getColumnDimension('E')->setWidth(5.73);
+$sheet->getColumnDimension('F')->setWidth(2.87);
+$sheet->getColumnDimension('G')->setWidth(7.23);
+$sheet->getColumnDimension('H')->setWidth(30.14);
+$sheet->getColumnDimension('I')->setWidth(2.04);
+$sheet->getColumnDimension('J')->setWidth(5.18);
+$sheet->getColumnDimension('K')->setWidth(14.18);
+$sheet->getColumnDimension('L')->setWidth(4.77);
+$sheet->getColumnDimension('M')->setWidth(0.75);
+$sheet->getColumnDimension('N')->setWidth(18.68);
+    
 // style merge cell
-
 $sheet->mergeCells('A1:N1');
 $sheet->mergeCells('A2:N2');
 $sheet->mergeCells('A3:N3');
@@ -146,7 +178,8 @@ $sheet->mergeCells('A11:B11');
 $sheet->mergeCells('D11:N11');
 $sheet->mergeCells('A12:B12');
 $sheet->mergeCells('D12:N12');
-$sheet->mergeCells('A13:N13');
+
+// $sheet->mergeCells('A13:N13');
 $sheet->mergeCells('A14:B14');
 $sheet->mergeCells('D14:H14');
 $sheet->mergeCells('I14:K14');
@@ -237,12 +270,395 @@ $sheet->mergeCells('I45:N46');
 $sheet->mergeCells('I47:N47');
 $sheet->mergeCells('A48:N48');
 
-$styleArray = [
-    'font' => ['bold' => true],
-    'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
-    'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+$styleJudul = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 18,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+
+];
+
+$styleSubJudul = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 9,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+
+$styleSubSubJudul = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 8,
+        'color' => ['rgb' => 'c9574c'], // Warna hitam
+    ],
+];
+$stylefontboldarial12 = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$stylefontboldarial14underline = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 14,
+        'underline' => true,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+
+$stylefontboldarial10 = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 10,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$stylefontboldconsolas12 = [
+    'font' => [
+        'name' => 'Consolas',
+        'bold' => true,
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$stylefontterbilang = [
+    'font' => [
+        'name' => 'Consolas',
+        'bold' => true,
+        'italic' => true,
+        'size' => 11,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [
+        'wrapText' => true,
+    ],
+];
+$styletimesnewroman12 = [
+    'font' => [
+        'name' => 'Times New Roman',
+        'bold' => true,
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$stylefontboldarial11 = [
+    'font' => [
+        'name' => 'Arial',
+        'bold' => true,
+        'size' => 11,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$stylefontarial9warp = [
+    'font' => [
+        'name' => 'Arial',
+        'size' => 9,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [
+        'wrapText' => true,
+    ],
+];
+$stylefontarial12= [
+    'font' => [
+        'name' => 'Arial',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$stylefontboldtahoma12underline = [
+    'font' => [
+        'name' => 'Tahoma',
+        'bold' => true,
+        'size' => 12,
+        'underline' => true,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+
+$stylenominalcell = [
+    'font' => [
+        'name' => 'Tahoma',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [ // Perbaikan typo dari 'alingment' ke 'alignment'
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+    'borders' => [
+        'top' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'bottom' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'right' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+    ],
+];
+$styleitemcell = [
+    'font' => [
+        'name' => 'Tahoma',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [ // Perbaikan typo dari 'alingment' ke 'alignment'
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+    'borders' => [
+        'top' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'bottom' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'left' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+    ],
+];
+$styleitematascell = [
+    'font' => [
+        'name' => 'Tahoma',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [ // Perbaikan typo dari 'alingment' ke 'alignment'  
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+    'borders' => [
+        'top' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'bottom' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'left' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+        'right' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+    ],
+];
+
+$stylefontboldtahoma12right = [
+    'font' => [
+        'name' => 'Tahoma',
+        'bold' => true,
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+]; 
+$stylefonttahoma12 = [
+    'font' => [
+        'name' => 'Tahoma',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$styledatecell = [
+    'font' => [
+        'name' => 'consolas',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alingment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+    'borders' => [
+        'bottom' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        ],
+    ],
+
+];
+$stylefontboldtahoma12left = [
+    'font' => [
+        'name' => 'Tahoma',
+        'bold' => true,
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+    'alingment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+];
+$stylefontitalictahoma12 = [
+    'font' => [
+        'name' => 'Tahoma',
+        'size' => 12,
+        'italic' => true,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],   
+    'alingment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+];
+$stylealigntengah = [
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+];
+$styleborderdoublebottom = [
+    'borders' => [
+        'bottom' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE,
+        ],
+    ],
+];
+$stylefontconsolas12 = [
+    'font' => [
+        'name' => 'Consolas',
+        'size' => 12,
+        'color' => ['rgb' => '000000'], // Warna hitam
+    ],
+];
+$styleborderbottom = [
+    'borders' => [
+        'bottom' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        ],
+    ],
+];
+$stylealignleft = [
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+];
+$styleAllBorders = [
+    'borders' => [
+        'allBorders' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        ],
+    ],
 ];
 
 // Terapkan gaya ke judul kolom
-$sheet->getStyle('A1:H1')->applyFromArray($styleArray);
+$sheet->getStyle('A1:N9')->applyFromArray($stylealigntengah);
+$sheet->getStyle('A42:H42')->applyFromArray($stylealigntengah);
+$sheet->getStyle('A43:N48')->applyFromArray($stylealigntengah);
+$sheet->getStyle('A22:N23')->applyFromArray($stylealigntengah);
+$sheet->getStyle('I14:K14')->applyFromArray($stylealigntengah);
+
+$sheet->getStyle('A1:N1')->applyFromArray($styleJudul);
+$sheet->getStyle('A2:N2')->applyFromArray($styleSubJudul);
+$sheet->getStyle('A3:N3')->applyFromArray($styleSubSubJudul);
+$sheet->getStyle('A6:N6')->applyFromArray($styleSubSubJudul);
+$sheet->getStyle('k7:N8')->applyFromArray($stylefontboldarial12);
+$sheet->getStyle('A9:N9')->applyFromArray($stylefontboldarial14underline);
+$sheet->getStyle('A11:A18')->applyFromArray($stylefontboldarial10);
+$sheet->getStyle('D11:D12')->applyFromArray($stylefontboldconsolas12);
+$sheet->getStyle('C11:C18')->applyFromArray($styletimesnewroman12);
+$sheet->getStyle('D14:K14')->applyFromArray($stylefontboldarial11);
+$sheet->getStyle('L14:N14')->applyFromArray($stylefontterbilang);
+$sheet->getStyle('D15:N16')->applyFromArray($stylefontterbilang);
+$sheet->getStyle('M18')->applyFromArray($styletimesnewroman12);
+$sheet->getStyle('N18')->applyFromArray($stylefontconsolas12);
+$sheet->getStyle('D18:H18')->applyFromArray($stylefontboldarial12);
+$sheet->getStyle('L18')->applyFromArray($stylefontboldarial12);
+$sheet->getStyle('D19:E19')->applyFromArray($stylefontboldarial11);
+$sheet->getStyle('A22')->applyFromArray($stylefontarial9warp);
+$sheet->getStyle('B22:N22')->applyFromArray($stylefontarial12);
+$sheet->getStyle('B24:H24')->applyFromArray($stylefontboldtahoma12underline);
+$sheet->getStyle('B25:H31')->applyFromArray($styleitematascell);
+$sheet->getStyle('B33:H33')->applyFromArray($stylefontboldtahoma12underline);
+for ($row = 34; $row <=40; $row++) {
+    for ($col = 'B'; $col <= 'G'; $col++) {
+        $cell = $col . $row;
+        $sheet->getStyle($cell)->applyFromArray($styleitemcell);
+    }
+}
+for ($row = 34; $row <= 40; $row++) {
+    $cell = 'H' . $row;
+    $sheet->getStyle($cell)->applyFromArray($stylenominalcell);
+}
+
+$sheet->getStyle('B41:H41')->applyFromArray($stylefontboldtahoma12right);
+$sheet->getStyle('I41:K41')->applyFromArray($stylefontboldtahoma12left);
+$sheet->getStyle('A42:H42')->applyFromArray($stylefonttahoma12);
+$sheet->getStyle('I42:K42')->applyFromArray($stylefontboldtahoma12left);
+$sheet->getStyle('L42:N42')->applyFromArray($stylefontitalictahoma12);
+$sheet->getStyle('A43:L43')->applyFromArray($stylefontarial12);
+$sheet->getStyle('M43:N43')->applyFromArray($stylefontconsolas12);
+$sheet->getStyle('I44:N44')->applyFromArray($stylefontarial12);
+$sheet->getStyle('I47:N47')->applyFromArray($stylefontboldarial12);
+//stlye alignment
+$sheet->getStyle('A11:N17')->applyFromArray($stylealignleft);
+
+//style border
+$sheet->getStyle('A6:N6')->applyFromArray($styleborderdoublebottom);
+$sheet->getStyle('D11:N11')->applyFromArray($styleborderbottom);
+$sheet->getStyle('D12:N12')->applyFromArray($styleborderbottom);
+$sheet->getStyle('D14:H14')->applyFromArray($styleborderbottom);
+$sheet->getStyle('L14:N14')->applyFromArray($styleborderbottom);
+$sheet->getStyle('D15:N16')->applyFromArray($styleborderbottom);
+$sheet->getStyle('D17:K17')->applyFromArray($styleborderbottom);
+$sheet->getStyle('M17:N17')->applyFromArray($styleborderbottom);
+$sheet->getStyle('I18:K18')->applyFromArray($styleborderbottom);
+$sheet->getStyle('N18')->applyFromArray($styleborderbottom);
+$sheet->getStyle('F19:N19')->applyFromArray($styleborderbottom);
+$sheet->getStyle('A22:N32')->applyFromArray($styleAllBorders);
+$sheet->getStyle('A33:A40')->applyFromArray($styleAllBorders);
+$sheet->getStyle('A41:H47')->applyFromArray($styleAllBorders);
+$sheet->getStyle('A42:N42')->applyFromArray($styleborderdoublebottom);
+$sheet->getStyle('I33:N42')->applyFromArray($styleAllBorders);
+
+
+$drawing = new Drawing();
+$drawing->setName('Logo');
+$drawing->setDescription('Logo');
+$drawing->setPath('../asset/Logo.png'); // Ganti dengan path gambar Anda
+$drawing->setHeight(34); // Atur tinggi gambar
+
+// **Posisikan gambar di pojok kiri atas (A1)**
+$drawing->setCoordinates('A1'); 
+$drawing->setOffsetX(0); // Geser ke kiri sejauh mungkin
+$drawing->setOffsetY(0); // Geser ke atas sejauh mungkin
+$drawing->setWorksheet($sheet);
+
+// **Mengatur agar A1:N48 menjadi satu halaman cetak**
+$sheet->getPageSetup()->setPrintArea('A1:N48');
+$sheet->getPageSetup()->setFitToWidth(1);
+$sheet->getPageSetup()->setFitToHeight(1);
+$sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
+$sheet->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
+
 ?>
