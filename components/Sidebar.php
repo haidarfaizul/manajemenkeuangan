@@ -7,7 +7,5 @@ $root_url = "/manajemenkeuangan";  // Sesuaikan dengan path root kamu
     <ul class="space-y-2">
         <li><a href="<?= $root_url ?>/index.php" class="block p-3 bg-gray-700 rounded hover:bg-gray-600">Dashboard</a></li>
         <li><a href="<?= $root_url ?>/pages/dataView.php" class="block p-3 bg-gray-700 rounded hover:bg-gray-600">Tampilan Data</a></li>
-        <li><a href="<?= $root_url ?>/reports.php" class="block p-3 bg-gray-700 rounded hover:bg-gray-600">Reports</a></li>
-        <li><a href="<?= $root_url ?>/settings.php" class="block p-3 bg-gray-700 rounded hover:bg-gray-600">Settings</a></li>
     </ul>
 </div>

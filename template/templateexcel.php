@@ -1,4 +1,5 @@
 <?php
+
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
@@ -32,7 +33,7 @@ $sheet->setCellValue('A18', 'BERUPA');
 $sheet->setCellValue('C18', ':');
 $sheet->setCellValue('D18', 'TUNAI / CHEQUE / GB / NPB / NO.');
 $sheet->setCellValue('L18', 'TGL');
-$sheet->setCellValue('M18', ':');
+$sheet->setCellValue('M18', ': ');
 
 $sheet->setCellValue('D19', 'BANK');
 
@@ -160,9 +161,9 @@ $sheet->getColumnDimension('I')->setWidth(2.04);
 $sheet->getColumnDimension('J')->setWidth(5.18);
 $sheet->getColumnDimension('K')->setWidth(14.18);
 $sheet->getColumnDimension('L')->setWidth(4.77);
-$sheet->getColumnDimension('M')->setWidth(0.75);
+$sheet->getColumnDimension('M')->setWidth(1);
 $sheet->getColumnDimension('N')->setWidth(18.68);
-    
+
 // style merge cell
 $sheet->mergeCells('A1:N1');
 $sheet->mergeCells('A2:N2');
@@ -373,7 +374,7 @@ $stylefontarial9warp = [
         'wrapText' => true,
     ],
 ];
-$stylefontarial12= [
+$stylefontarial12 = [
     'font' => [
         'name' => 'Arial',
         'size' => 12,
@@ -481,7 +482,7 @@ $stylefontboldtahoma12right = [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
     ],
-]; 
+];
 $stylefonttahoma12 = [
     'font' => [
         'name' => 'Tahoma',
@@ -524,7 +525,7 @@ $stylefontitalictahoma12 = [
         'size' => 12,
         'italic' => true,
         'color' => ['rgb' => '000000'], // Warna hitam
-    ],   
+    ],
     'alingment' => [
         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
@@ -600,7 +601,7 @@ $sheet->getStyle('B22:N22')->applyFromArray($stylefontarial12);
 $sheet->getStyle('B24:H24')->applyFromArray($stylefontboldtahoma12underline);
 $sheet->getStyle('B25:H31')->applyFromArray($styleitematascell);
 $sheet->getStyle('B33:H33')->applyFromArray($stylefontboldtahoma12underline);
-for ($row = 34; $row <=40; $row++) {
+for ($row = 34; $row <= 40; $row++) {
     for ($col = 'B'; $col <= 'G'; $col++) {
         $cell = $col . $row;
         $sheet->getStyle($cell)->applyFromArray($styleitemcell);
@@ -649,7 +650,7 @@ $drawing->setPath('../asset/Logo.png'); // Ganti dengan path gambar Anda
 $drawing->setHeight(34); // Atur tinggi gambar
 
 // **Posisikan gambar di pojok kiri atas (A1)**
-$drawing->setCoordinates('A1'); 
+$drawing->setCoordinates('A1');
 $drawing->setOffsetX(1); // Geser ke kiri sejauh mungkin
 $drawing->setOffsetY(1); // Geser ke atas sejauh mungkin
 $drawing->setWorksheet($sheet);
@@ -668,5 +669,3 @@ $sheet->getPageMargins()->setRight(0.196850393700787);  // Margin kanan
 $sheet->getPageMargins()->setBottom(0.393700787401575); // Margin bawah
 $sheet->getPageMargins()->setHeader(0.393700787401575); // Margin header
 $sheet->getPageMargins()->setFooter(0.354330708661417); // Margin footer
-
-?>

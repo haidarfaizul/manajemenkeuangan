@@ -1,3 +1,8 @@
+logo {
+  width: 100px;
+  height: 100px;
+}
+
 #cell {
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
@@ -33,4 +38,11 @@
 #undertopcell {
   border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
+}
+
+/* .logo {
+  z-index: 5000;
+} */
+* {
+  border: solid 1px red;
 }
