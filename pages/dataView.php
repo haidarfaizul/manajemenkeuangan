@@ -48,35 +48,6 @@
             </div>
         </div>
 
-        <!-- Pop-up Modal Edit -->
-                <div id="editModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-96 overflow-y-auto max-h-screen">
-                <h2 class="text-xl font-bold mb-4">Edit Data</h2>
-                <form id="editForm" method="POST" action="../controller/update_data.php">
-                    <input type="hidden" id="editId" name="id">
-
-                    <label class="block mb-2">Nama:</label>
-                    <input type="text" id="editName" name="name" class="border w-full p-2 rounded-lg" placeholder="Nama...">
-
-                    <label class="block mt-3 mb-2">Tanggal:</label>
-                    <input type="date" id="editDate" name="date" class="border w-full p-2 rounded-lg">
-
-                    <div id="paymentFields" class="space-y-4 mt-4">
-                        <!-- Field tambahan akan ditambahkan di sini -->
-                    </div>
-
-                    <button type="button" onclick="addPaymentField()" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-4">
-                        Tambah Item
-                    </button>
-
-                    <div class="flex justify-between mt-4">
-                        <button type="button" onclick="toggleModal('editModal')" class="bg-gray-400 text-white px-4 py-2 rounded-lg">Batal</button>
-                        <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded-lg">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
         <!-- Tabel Data -->
         <div class="overflow-x-auto bg-white shadow-md rounded-lg p-4 mt-4">
             <table class="w-full border border-gray-300">
@@ -162,8 +133,7 @@
                             echo "<td class='border border-gray-300 px-4 py-2'>" . $totalFormatted . "</td>";
                             echo "<td class='border border-gray-300 px-4 py-2'>
                                     <button onclick='previewTemplate(" . $row['id'] . ")' class='bg-blue-500 text-white px-2 py-1 rounded-lg'>Preview</button>
-                                    <a href='download_excel.php?id=" . $row['id'] . "' class='bg-green-500 text-white px-2 py-1 rounded-lg'>Excel</a>
-                                    <button onclick='editData(" . json_encode($row) . ")' class='bg-purple-500 text-white px-2 py-1 rounded-lg'>Edit</button>
+                                    <a href='../controller/download_excel.php?id=" . $row['id'] . "' class='bg-green-500 text-white px-2 py-1 rounded-lg'>Excel</a>
                                 </td>";
                             echo "</tr>";
                         }
@@ -194,22 +164,6 @@
 
         function toggleModal(modalId) {
             document.getElementById(modalId).classList.toggle("hidden");
-        }
-
-        function editData(data) {
-            document.getElementById('editId').value = data.id;
-            document.getElementById('editName').value = data.name;
-            document.getElementById('editDate').value = data.date;
-            
-            const paymentFields = document.getElementById('paymentFields');
-            paymentFields.innerHTML = '';
-            for (let i = 1; i <= 7; i++) {
-                if (data[`item${i}`] || data[`nominal${i}`]) {
-                    addPaymentField(data[`item${i}`], data[`nominal${i}`]);
-                }
-            }
-
-            toggleModal('editModal');
         }
         let paymentCount = 0;
 

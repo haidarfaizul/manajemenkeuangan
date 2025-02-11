@@ -650,8 +650,8 @@ $drawing->setHeight(34); // Atur tinggi gambar
 
 // **Posisikan gambar di pojok kiri atas (A1)**
 $drawing->setCoordinates('A1'); 
-$drawing->setOffsetX(0); // Geser ke kiri sejauh mungkin
-$drawing->setOffsetY(0); // Geser ke atas sejauh mungkin
+$drawing->setOffsetX(1); // Geser ke kiri sejauh mungkin
+$drawing->setOffsetY(1); // Geser ke atas sejauh mungkin
 $drawing->setWorksheet($sheet);
 
 // **Mengatur agar A1:N48 menjadi satu halaman cetak**
@@ -660,5 +660,13 @@ $sheet->getPageSetup()->setFitToWidth(1);
 $sheet->getPageSetup()->setFitToHeight(1);
 $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
 $sheet->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
+
+// Mengatur margin sesuai dengan yang Anda inginkan
+$sheet->getPageMargins()->setLeft(0.196850393700787);   // Margin kiri
+$sheet->getPageMargins()->setTop(0.078740157480315);    // Margin atas
+$sheet->getPageMargins()->setRight(0.196850393700787);  // Margin kanan
+$sheet->getPageMargins()->setBottom(0.393700787401575); // Margin bawah
+$sheet->getPageMargins()->setHeader(0.393700787401575); // Margin header
+$sheet->getPageMargins()->setFooter(0.354330708661417); // Margin footer
 
 ?>

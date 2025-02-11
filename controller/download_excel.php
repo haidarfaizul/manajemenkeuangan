@@ -79,24 +79,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         }
         // -------------------------------
 
-        // Konversi total nominal ke dalam bentuk tulisan (contoh: 20000 menjadi "dua puluh ribu")
         $total_nominal_terbilang = terbilang($total_nominal);
-        // Misalnya, Anda ingin menampilkan atau memasukkan nilai ini ke template Excel:
-        // echo $total_nominal_terbilang;
 
         // Buat spreadsheet baru
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Format nomor transaksi
-        // (Kode format nomor transaksi dapat ditambahkan di sini)
-
-        // Menempatkan nomor transaksi ke sel M7
-        // (Kode untuk menempatkan nomor transaksi ke sel M7 dapat ditambahkan di sini)
-
-        // Isi data ke spreadsheet dari template
-        // Anda bisa memodifikasi file templateexcel.php agar dapat menggunakan variabel $total_nominal_terbilang
-        require 'templateexcel.php';
+        require '../template/templateexcel.php';
 
         // Bersihkan output buffer sebelum mengirim header
         ob_clean();
